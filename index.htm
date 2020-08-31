@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width-device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>Music Player</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main_div">
+    <div class="music_container">
+       <h2 id="title">Coffee House</h2>
+       <h3 id="artist">Manna De</h3><br><br>
+       <div class="img_container">
+        <img src="nayan-1.jpg" alt="">
+       </div>
+       <audio src="nayan-1.mp3"></audio>
+    <!-----controls------>
+    <div class= "music_controls">
+    <div class="fa fa-backward" id="prev" title="Previous"></div>
+    <div class="fa fa-play main_button" id="play" title="Play"></div>
+    <div class="fa fa-forward" id="next" title="Next"></div>
+    </div>
+    </div>
+</div>
+<script>
+    const music = document.querySelector("audio");
+    const img= document.querySelector("img");
+    const play = document.getElementById("play");
+    const artist = document.getElementById("artist");
+    const title = document.getElementById("title");
+    const prev = document.getElementById("prev");
+    const next = document.getElementById("next");
+
+    const songs = [
+    {
+        name: "nayan-1",
+        title: "Coffee House",
+        artist: "Manna De",
+    },
+    {
+        name: "nayan-2",
+        title: "Duti Mon",
+        artist: "Liza",
+    },
+    {
+        name: "nayan-3",
+        title: "Tumi Aaj Kato",
+        artist: "Jaganmoy Mitra",
+    },
+    {
+        name: "nayan-4",
+        title: "Prem Akbari",
+        artist: "Lata Mangeskar",
+    },
+    {
+        name: "nayan-5",
+        title: "Aaj Dujonar",
+        artist: "Srikanto Acharya",
+    },
+    {
+        name: "nayan-6",
+        title: "Aaj Ei Dintake",
+        artist: "Kishore Kumar",
+    },
+    {
+        name: "nayan-7",
+        title: "Ajke Rate Eso",
+        artist: "Kumar Sanu",
+    },
+    {
+        name: "nayan-8",
+        title: "Amar Bolar Kichu",
+        artist: "Jaganmoy Mitra",
+    },
+    {
+        name: "nayan-9",
+        title: "Amar-Sadh-Na-Mitilo ",
+        artist: "Kumar Sanu",
+    },
+    {
+        name: "nayan-10",
+        title: "Asha Chilo",
+        artist: "Akbor",
+    },
+    ];
+
+    let isPlaying = false;
+     //for play
+    const playMusic= () =>
+    {
+      isPlaying= true;
+      music.play();
+      play.classList.replace('fa-play', "fa-pause");
+      img.classList.add("anime");
+    };
+
+    //for pause
+    const pauseMusic = () =>
+    {
+      isPlaying= false;
+      music.pause();
+      play.classList.replace('fa-pause', "fa-play");
+      img.classList.remove("anime");
+    };
+
+    play.addEventListener('click', () => {
+        isPlaying ? pauseMusic() : playMusic();
+    });
+
+    //changing music data
+    const loadSong = (songs) => {
+      title.textContent = songs.title;
+      artist.textContent = songs.artist;
+      music.src= songs.name + ".mp3";
+      img.src= songs.name + ".jpg";
+    };
+    songIndex= 0;
+    const nextSong = () =>
+    {
+        songIndex = (songIndex + 1 ) % songs.length;
+        loadSong(songs [songIndex]);
+        playMusic()
+    };
+
+    const prevSong = () =>
+    {
+        songIndex = (songIndex - 1 + songs.length)% songs.length;
+        loadSong(songs [songIndex]);
+        playMusic()
+    };
+     
+    next.addEventListener("click", nextSong);
+    prev.addEventListener("click", prevSong);
+
+
+</script>
+</body>
+</html>
